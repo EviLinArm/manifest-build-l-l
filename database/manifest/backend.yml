@@ -1,0 +1,53 @@
+name: ManifestBuildLunchAndLearn 📑
+entities:
+  Customer 🧑‍🦱:
+    properties:
+      - { name: firstName, type: string, validation: { required: true } }
+      - { name: lastName, type: string }
+      - { name: age, type: number, validation: { min: 18, max: 99 } }
+    belongsTo:
+      - Profession
+    belongsToMany:
+      - Services
+
+  Profession 🧑‍⚕️:
+    properties:
+      - { name: name, type: string, validation: { required: true } }
+
+  Employee 👲:
+    properties:
+      - { name: firstName, type: string, validation: { required: true } }
+      - { name: lastName, type: string }
+      - { name: age, type: number, validation: { min: 18, max: 99 } }
+    belongsTo:
+      - Position
+    belongsToMany:
+      - Services
+
+  Position 🎚️:
+    properties:
+      - { name: title, type: string }
+      - {
+        name: position,
+        type: choice,
+        options: { values: [junior, middle, senior], sequential: true }
+      }
+
+  Services 🏠:
+    properties:
+      - { name: name, type: string, validation: { required: true } }
+
+  Project 🏢:
+    properties:
+      - { name: createDate, type: date }
+      - { name: typeOfActivity, type: string }
+    belongsTo:
+      - { name: client, entity: Customer }
+      - { name: worker, entity: Employee }
+
+  Homepage 🏦:
+    nameSingular: Manifest
+    single: true
+    properties:
+      - title
+      - { name: description, type: richText }
